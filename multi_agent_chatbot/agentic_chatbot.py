@@ -34,7 +34,7 @@ async def on_message(message: cl.Message):
             event.data, ResponseTextDeltaEvent
         ):
             await msg.stream_token(token=event.data.delta)
-            print(event.data.delta, end="", flush=True)
+            print("event.data.delta", end="", flush=True)
 
         elif (
             event.type == "raw_response_event"
@@ -43,8 +43,8 @@ async def on_message(message: cl.Message):
             and event.data.item.type == "function_call"
             and len(event.data.item.arguments) > 0
         ):
-            with cl.Step(name=f"{event.data.item.name}", type="tool") as step:
-                step.input = event.data.item.arguments
+            with cl.Step(name="Search", type="tool") as step:
+                step.input = "Searching"
                 print(
                     f"\nTool call: {
                         event.data.item.name} with args: {
